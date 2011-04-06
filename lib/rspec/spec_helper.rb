@@ -7,27 +7,11 @@ require File.expand_path(File.dirname(__FILE__) + "/reporting/selenium_test_repo
 
 RSpec.configure do |config|
 
-  config.around(:each) do |example|
-    begin 
-      if selenium_driver && selenium_driver.session_started?
-        selenium_driver.set_context "Starting example '#{self.example.metadata[:description]}'"
-      end
-    rescue Exception => e
-      STDERR.puts "Problem while setting context on example start" + e
+  config.after(:each) do 
+    if actual_failure? 
+      SeleniumTestReportFormatter.capture_system_state(driver, self.example)
     end
-
-    example.run
-
-    begin 
-      if actual_failure? 
-        SeleniumTestReportFormatter.capture_system_state(selenium_driver, self.example)
-      end
-      if selenium_driver.session_started?
-        selenium_driver.set_context "Ending example '#{self.example.metadata[:description]}'"
-      end
-    rescue Exception => e
-      STDERR.puts "Problem while capturing system state" + e
-    end
+    driver.quit
   end
 
 end

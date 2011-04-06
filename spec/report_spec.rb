@@ -6,7 +6,7 @@ describe "Report" do
     RSpec::Core::RakeTask.new(:test_for_specs) do |t|
       t.pattern = File.expand_path(File.dirname(__FILE__) + "/example_run.rb")
       t.rspec_opts = "--require 'lib/rspec/reporting/selenium_test_report_formatter' "
-      t.rspec_opts << "--require 'lib/rspec/spec_helper' "
+      #t.rspec_opts << "--require 'lib/rspec/spec_helper' "
       t.rspec_opts << "--format SeleniumTestReportFormatter "
       t.rspec_opts << "-o ./spec_tests_report.html "
       t.verbose = false
