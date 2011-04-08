@@ -1,2 +1,4 @@
 *.swp
 spec_tests_report.html
+resources
+spec_test_report.html

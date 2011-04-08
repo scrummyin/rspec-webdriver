@@ -1,17 +1,9 @@
-require "rubygems"
 require "selenium-webdriver"
 require "test/unit/assertions"
-require "lib/rspec/rspec_extensions"
+include Test::Unit::Assertions
 
 describe "Report" do
   attr_reader :driver
-
-  after(:each) do
-    if actual_failure?
-      SeleniumTestReportFormatter.capture_system_state(@driver, self.example)
-    end
-    @driver.quit
-  end
 
   it "Generates a clean report when needed" do
     @driver = Selenium::WebDriver.for :firefox

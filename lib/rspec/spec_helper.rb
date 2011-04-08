@@ -9,9 +9,9 @@ RSpec.configure do |config|
 
   config.after(:each) do 
     if actual_failure? 
-      SeleniumTestReportFormatter.capture_system_state(driver, self.example)
+      SeleniumTestReportFormatter.capture_system_state(@driver, self.example)
     end
-    driver.quit
+    @driver.quit
   end
 
 end
